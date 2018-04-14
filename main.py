@@ -22,6 +22,7 @@ class MainPage(QWidget):
 
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
+    # Function
     # Summary:
     # Preconditions:
     # Postconditions:
