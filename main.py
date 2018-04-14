@@ -19,7 +19,7 @@ class MainPage(QWidget):
 
         #SHOW EVERYTHING
         self.show()
-        
+
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
     # Function
@@ -33,3 +33,5 @@ app = QApplication(sys.argv)
 page = MainPage()
 status = app.exec_()
 sys.exit(status)
+
+print("hello world!")
