@@ -20,6 +20,14 @@ class MainPage(QWidget):
         #SHOW EVERYTHING
         self.show()
 
+    #PUT THIS WHEN WRITING NEW FUNCTIONS
+    #*******************************************************************************************************
+    # Summary:
+    # Preconditions:
+    # Postconditions:
+    #*******************************************************************************************************
+
+
 app = QApplication(sys.argv)
 page = MainPage()
 status = app.exec_()

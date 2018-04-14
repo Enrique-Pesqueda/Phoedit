@@ -1,28 +1,14 @@
 #*******************************************************************************
-# Contributors: Samuel Peters
+# Contributors: Enrique Mosqueda, Samuel Peters, Tristan Martin, Sebastian Ruiz
 # Last Changed: 14 April 2018
-# Description: This file will create a layout that has drag and drop functionality to add images to the photo editor. This file will also contain the layout to display images that are added through drag and drop.
+# Description: This file holds all of the functions that will be used to creat
 #*******************************************************************************
 
-hello = "hello world!"
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#*******************************************************************************************************
 # Summary:
 # Preconditions:
 # Postconditions:
