@@ -1,8 +1,8 @@
-#*******************************************************************************
+#*******************************************************************************************************
 # Contributors: Enrique Mosqueda, Samuel Peters, Tristan Martin, Sebastian Ruiz
 # Last Changed: 14 April 2018
 # Description: This is the main file that brings all of the pyqt layouts together to create the completed GUI.
-#*******************************************************************************
+#*******************************************************************************************************
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QComboBox, QLabel
 from PIL import Image
@@ -19,7 +19,7 @@ class MainPage(QWidget):
 
         #SHOW EVERYTHING
         self.show()
-
+        
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
     # Function
