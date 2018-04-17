@@ -5,7 +5,7 @@
 #*******************************************************************************************************
 import sys
 import dragAndDropImageFunctions as ddif
-from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QComboBox, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QComboBox, QLabel, QSlider
 from PIL import Image
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt
@@ -26,12 +26,26 @@ class MainPage(QWidget):
         vbox1.addWidget(displayPicText)
         vbox1.addWidget(displayPicHolder)
 
+        #RGB sliders
+        vbox2 = QVBoxLayout()
+        self.sl = QSlider(Qt.Horizontal)
+        self.sl.setMinimum(-50)
+        self.sl.setMaximum(50)
+        self.sl.setValue(0)
+        self.sl.setTickPosition(QSlider.TicksBelow)
+        self.sl.setTickInterval(5)
+        vbox2.addWidget(self.sl)
+        self.sl.valueChanged.connect(self.valuechange)
+    def valuechange(self):
+        value = self.sl.value()
+
         #MAIN LAYOUT
         mbox = QVBoxLayout()
         mbox.addLayout(vbox1)
+        mbox.addLayout(vbox2)
         self.setLayout(mbox)
         self.setGeometry(0, 0, 800, 600)
-            # Set window background color
+        # Set window background color
         self.setAutoFillBackground(True)
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.darkGray)
