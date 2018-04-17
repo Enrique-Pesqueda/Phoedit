@@ -4,19 +4,22 @@
 # Description: This is the main file that brings all of the pyqt layouts together to create the completed GUI.
 #*******************************************************************************************************
 import sys
-import dragAndDropImageFunctions as ddif
-from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QComboBox, QLabel, QSlider
+from FileExplorer import FileExplorer
+from PyQt5.QtWidgets import *
 from PIL import Image
-from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 class MainPage(QWidget):
+
+    #*******************************************************************************************************
     def __init__(self):
         super().__init__()
         self.setWindowTitle("phoEDIT")
-        self.picToEdit='IMG_0321.png'
+        self.picToEdit=''
 
-        #DRAG AND DROP / IMAGE DISPLAY LAYOUT
+        #FILE EXPLORER / IMAGE DISPLAY LAYOUT
+        self.picToEdit = FileExplorer.openFileNameDialog(self)
         displayPicText = QLabel(self.picToEdit)
         displayPicHolder = QLabel(self)
         displayPic = QPixmap(self.picToEdit)
@@ -26,34 +29,25 @@ class MainPage(QWidget):
         vbox1.addWidget(displayPicText)
         vbox1.addWidget(displayPicHolder)
 
-        #RGB sliders
-        vbox2 = QVBoxLayout()
-        self.sl = QSlider(Qt.Horizontal)
-        self.sl.setMinimum(-50)
-        self.sl.setMaximum(50)
-        self.sl.setValue(0)
-        self.sl.setTickPosition(QSlider.TicksBelow)
-        self.sl.setTickInterval(5)
-        vbox2.addWidget(self.sl)
-        self.sl.valueChanged.connect(self.valuechange)
-    def valuechange(self):
-        value = self.sl.value()
-
         #MAIN LAYOUT
         mbox = QVBoxLayout()
         mbox.addLayout(vbox1)
-        mbox.addLayout(vbox2)
         self.setLayout(mbox)
         self.setGeometry(0, 0, 800, 600)
-        # Set window background color
+
+        #SET WINDOW BACKGROUND COLOR
         self.setAutoFillBackground(True)
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.darkGray)
         self.setPalette(p)
 
-
         #SHOW EVERYTHING
         self.show()
+    # Summary: This function initializes the Main window which will contain the image being edited and all possible editing options for that image.
+    # Preconditions: N/A
+    # Postconditions: The main window will be shown on the desktop.
+    #*******************************************************************************************************
+
 
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
