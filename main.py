@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import *
 from PIL import Image
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import os 
+import os
 
 class MainPage(QWidget):
 
@@ -44,8 +44,24 @@ class MainPage(QWidget):
         self.sl.setValue(0)
         self.sl.setTickPosition(QSlider.TicksBelow)
         self.sl.setTickInterval(5)
-        vbox2.addWidget(self.sl)
-        self.sl.valueChanged.connect(self.valuechange)
+        self.s2 = QSlider(Qt.Horizontal, self)
+        self.s2.setMinimum(-50)
+        self.s2.setMaximum(50)
+        self.s2.setValue(0)
+        self.s2.setTickPosition(QSlider.TicksBelow)
+        self.s2.setTickInterval(5)
+        self.s3 = QSlider(Qt.Horizontal, self)
+        self.s3.setMinimum(-50)
+        self.s3.setMaximum(50)
+        self.s3.setValue(0)
+        self.s3.setTickPosition(QSlider.TicksBelow)
+        self.s3.setTickInterval(5)
+        vbox2.addWidget(self.s1)
+        vbox2.addWidget(self.s2)
+        vbox2.addWidget(self.s3)
+        self.sl.valueChanged.connect(self.redValueChange)
+        self.s2.valueChanged.connect(self.greenValueChange)
+        self.s3.valueChanged.connect(self.blueValueChange)
 
         #SET WINDOW BACKGROUND COLOR
         self.setAutoFillBackground(True)
@@ -60,8 +76,16 @@ class MainPage(QWidget):
     # Postconditions: The main window will be shown on the desktop.
     #*******************************************************************************************************
     @pyqtSlot
-    def valuechange(self):
+    def redValueChange(self):
         value = self.sl.value()
+        im = Image.open(self.picToEdit)
+    @pyqtSlot
+    def greenValueChange(self):
+        value = self.s2.value()
+        im = Image.open(self.picToEdit)
+    @pyqtSlot
+    def blueValueChange(self):
+        value = self.s3.value()
         im = Image.open(self.picToEdit)
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
