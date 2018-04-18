@@ -63,7 +63,8 @@ class MainPage(QWidget):
     # Summary: This function updates the main display by deleting widgets adding new widgets with updated
     #          information to the mainpage.
     def updateMainPage(self):
-        #updates picture display and file path text display
+
+        #UPDATES PICTURE DISPLAY AND FILE PATH TEXT DISPLAY
         self.vbox1.removeWidget(self.displayPicText)
         self.displayPicText.deleteLater()
         self.vbox1.removeWidget(self.displayPicHolder)
