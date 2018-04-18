@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import *
 from PIL import Image
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import os 
 
 class MainPage(QWidget):
 
@@ -35,6 +36,17 @@ class MainPage(QWidget):
         self.setLayout(mbox)
         self.setGeometry(0, 0, 800, 600)
 
+        #RGB sliders
+        vbox2 = QVBoxLayout()
+        self.sl = QSlider(Qt.Horizontal, self)
+        self.sl.setMinimum(-50)
+        self.sl.setMaximum(50)
+        self.sl.setValue(0)
+        self.sl.setTickPosition(QSlider.TicksBelow)
+        self.sl.setTickInterval(5)
+        vbox2.addWidget(self.sl)
+        self.sl.valueChanged.connect(self.valuechange)
+
         #SET WINDOW BACKGROUND COLOR
         self.setAutoFillBackground(True)
         p = self.palette()
@@ -47,14 +59,14 @@ class MainPage(QWidget):
     # Preconditions: N/A
     # Postconditions: The main window will be shown on the desktop.
     #*******************************************************************************************************
-
-
+    @pyqtSlot
+    def valuechange(self):
+        value = self.sl.value()
+        im = Image.open(self.picToEdit)
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
     # Function
     # Summary:
-    # Preconditions:
-    # Postconditions:
     #*******************************************************************************************************
 
 
