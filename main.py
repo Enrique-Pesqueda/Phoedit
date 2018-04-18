@@ -16,6 +16,7 @@ class MainPage(QWidget):
     #          possible editing options for that image.
     def __init__(self):
         super().__init__()
+
         #WINDOW SETTINGS
         self.setWindowTitle("phoEDIT")
         self.setAutoFillBackground(True)
