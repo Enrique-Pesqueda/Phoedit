@@ -40,7 +40,8 @@ def Sepia(self, img):
 				pixelB = 255
 			copiedValue = QtGui.qRgb(pixelR, pixelG, pixelB)
 			fimg.setPixel(x, y, copiedValue)
-
+			
+	
 
 
 
