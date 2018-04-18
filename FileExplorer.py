@@ -11,13 +11,10 @@ class FileExplorer(QWidget):
 
     #*******************************************************************************************************
     # Summary: This function displays a file explorer window that can be used to choose an image file to edit.
-    # Preconditions: N/A
-    # Postconditions: A string containing the full path to the chosen image file will be returned.
     def openFileNameDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"Select Photo to Edit", "","All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"Select Photo to Edit", "","PNG Files (*.png);;JPG Files (*.jpg)", options=options)
         if fileName:
             return fileName
-            print(fileName)
     #*******************************************************************************************************
