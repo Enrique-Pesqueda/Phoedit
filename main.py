@@ -27,8 +27,6 @@ class MainPage(QWidget):
         self.picToEdit=''
         self.OriginalPic = 'noImageSelected.jpg'
 
-
-
         #FILE EXPLORER / IMAGE DISPLAY LAYOUT
         self.displayPicText = QLabel(self.picToEdit)
         self.displayPicHolder = QLabel(self)
