@@ -1,11 +1,15 @@
 #*******************************************************************************************************
+# imageManipFunctions.py
 # Contributors: Sebastian Ruiz
 # Last Changed: 15 April 2018
-# Description: RGB saturation functions take in a pillow image object and a value
-# the getdata() method is used to be able to alter a specific color channel
-# the specified color channel is modified by adding a passed in value to it
-# this is done for every pixel in an image and are saved into a new list
+# Description: Saturation and Vibrance editing functions.
 #*******************************************************************************************************
+
+#*******************************************************************************************************
+# Summary: RGB saturation functions take in a pillow image object and a value
+#          the getdata() method is used to be able to alter a specific color channel
+#          the specified color channel is modified by adding a passed in value to it
+#          this is done for every pixel in an image and are saved into a new list
 def redSaturation(image, value):
     list = image.getdata()
     new_list = []
@@ -42,18 +46,9 @@ def blueSaturation(image, value):
     picture.putdata(new_list)
     picture.save('x')
 #*******************************************************************************************************
-# Summary:
-# Preconditions:
-# Postconditions:
-#*******************************************************************************************************
-
-#*******************************************************************************************************
-# Contributors: Sebastian Ruiz
-# Last Changed: 15 April 2018
-# Description: RGB vibrance functions take in a pillow image object and a value
-# the getdata() method is used to be able to alter a specific color channel
-# if the specified color channel contains the largest value then that pixel is altered
-#*******************************************************************************************************
+# Summary: RGB vibrance functions take in a pillow image object and a value
+#          the getdata() method is used to be able to alter a specific color channel
+#          if the specified color channel contains the largest value then that pixel is altered
 def redVibrance(image, value):
     list = image.getdata()
     new_list = []
@@ -98,3 +93,4 @@ def blueVibrance(image, value):
         new_list.append(temp)
     picture.putdata(new_list)
     picture.save('x')
+#*******************************************************************************************************

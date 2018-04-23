@@ -1,4 +1,5 @@
 #*******************************************************************************************************
+# main.py
 # Contributors: Enrique Mosqueda, Samuel Peters, Tristan Martin, Sebastian Ruiz
 # Last Changed: 14 April 2018
 # Description: This is the main file that brings all of the pyqt layouts together to create the completed GUI.
@@ -16,6 +17,7 @@ class MainPage(QWidget):
     #          possible editing options for that image.
     def __init__(self):
         super().__init__()
+
         #WINDOW SETTINGS
         self.setWindowTitle("phoEDIT")
         self.setAutoFillBackground(True)
@@ -24,8 +26,8 @@ class MainPage(QWidget):
         self.setPalette(p)
 
         #IMPORTANT VARIABLES
-        self.picToEdit='noImageSelected.jpg'
-
+        self.picToEdit=''
+        self.OriginalPic = 'noImageSelected.jpg'
 
         #FILE EXPLORER / IMAGE DISPLAY LAYOUT
         self.displayPicText = QLabel(self.picToEdit)
@@ -62,7 +64,8 @@ class MainPage(QWidget):
     # Summary: This function updates the main display by deleting widgets adding new widgets with updated
     #          information to the mainpage.
     def updateMainPage(self):
-        #updates picture display and file path text display
+
+        #UPDATES PICTURE DISPLAY AND FILE PATH TEXT DISPLAY
         self.vbox1.removeWidget(self.displayPicText)
         self.displayPicText.deleteLater()
         self.vbox1.removeWidget(self.displayPicHolder)
