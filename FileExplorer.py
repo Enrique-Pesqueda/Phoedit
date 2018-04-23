@@ -2,7 +2,7 @@
 # FileExplorer.py
 # Contributors: Samuel Peters
 # Last Changed: 14 April 2018
-# Description: This 
+# Description: This
 #*******************************************************************************************************
 import sys
 from PyQt5.QtWidgets import *
@@ -15,7 +15,7 @@ class FileExplorer(QWidget):
     def openFileNameDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"Select Photo to Edit", "","PNG Files (*.png);;JPG Files (*.jpg)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"Select Photo to Edit", "","JPG Files (*.jpg);;PNG Files (*.png)", options=options)
         if fileName:
             return fileName
     #*******************************************************************************************************

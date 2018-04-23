@@ -1,5 +1,5 @@
 #*******************************************************************************************************
-# ImageManipFunctions.py
+# imageManipFunctions.py
 # Contributors: Sebastian Ruiz
 # Last Changed: 15 April 2018
 # Description: Saturation and Vibrance editing functions.
