@@ -1,7 +1,8 @@
 #*******************************************************************************************************
+# FileExplorer.py
 # Contributors: Samuel Peters
 # Last Changed: 14 April 2018
-# Description:
+# Description: This 
 #*******************************************************************************************************
 import sys
 from PyQt5.QtWidgets import *

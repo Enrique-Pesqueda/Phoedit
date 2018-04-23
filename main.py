@@ -1,4 +1,5 @@
 #*******************************************************************************************************
+# main.py
 # Contributors: Enrique Mosqueda, Samuel Peters, Tristan Martin, Sebastian Ruiz
 # Last Changed: 14 April 2018
 # Description: This is the main file that brings all of the pyqt layouts together to create the completed GUI.
