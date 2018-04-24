@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import *
 from PIL import Image
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from filterFunctions import FilterPic
 
 class MainPage(QWidget):
     #*******************************************************************************************************
@@ -43,6 +44,7 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
         
+        
         #FILTER FUNCTIONS LAYOUT
         self.sepiaButton = QPushButton('Sepia', self)
         self.sepiaButton.move(50,550)
@@ -51,8 +53,8 @@ class MainPage(QWidget):
         self.grayButton = QPushButton('Gray', self)
         self.grayButton.move(250, 550)
         
-
-
+    
+    
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
         self.mbox.addLayout(self.vbox1)
@@ -61,6 +63,10 @@ class MainPage(QWidget):
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
+        self.sepiaButton.clicked.connect(self.applySepiaFilter)
+        self.negativeButton.clicked.connect(self.applyNegativeFilter)
+        self.grayButton.clicked.connect(self.applyGrayFilter)
+
 
         #SHOW EVERYTHING
         self.show()
@@ -91,11 +97,23 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicHolder)
     #*******************************************************************************************************
 
-
-    #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
-    # Summary:
-    # Function
+    # Summary: This function will apply the Sepia filter to picToEdit.
+    def applySepiaFilter(self):
+        self.Sepia(picToEdit)
+    #*******************************************************************************************************
+    
+    #*******************************************************************************************************
+    # Summary: This function will apply the Negative filter to picToEdit.
+    def applyNegativeFilter(self):
+        self.Negative(picToEdit)
+        
+    #*******************************************************************************************************
+    
+    #*******************************************************************************************************
+    # Summary: This function will apply the Gray filter to picToEdit.
+    def applyGrayFilter(self):
+        self.Gray(picToEdit)
     #*******************************************************************************************************
 
 app = QApplication(sys.argv)
