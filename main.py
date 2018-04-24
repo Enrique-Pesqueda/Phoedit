@@ -36,10 +36,22 @@ class MainPage(QWidget):
         self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
         self.fileExplorerButton = QPushButton('Choose Image to Edit')
+        
+        
         self.vbox1 = QVBoxLayout()
         self.vbox1.addWidget(self.fileExplorerButton)
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
+        
+        #FILTER FUNCTIONS LAYOUT
+        self.sepiaButton = QPushButton('Sepia', self)
+        self.sepiaButton.move(50,550)
+        self.negativeButton = QPushButton('Negative', self)
+        self.negativeButton.move(150, 550)
+        self.grayButton = QPushButton('Gray', self)
+        self.grayButton.move(250, 550)
+        
+
 
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
