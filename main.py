@@ -42,22 +42,13 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
 
-
         #FILTER FUNCTIONS LAYOUT
-        self.sepiaButton = QPushButton('Sepia', self)
-        self.negativeButton = QPushButton('Negative', self)
-        self.grayButton = QPushButton('Gray', self)
-        self.vbox3 = QVBoxLayout()
-        self.vbox3.addWidget(self.sepiaButton)
-        self.vbox3.addWidget(self.negativeButton)
-        self.vbox3.addWidget(self.grayButton)
 
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
         self.hbox1 = QHBoxLayout()
         self.hbox2 = QHBoxLayout()
         self.hbox1.addLayout(self.vbox1)
-        self.hbox2.addLayout(self.vbox3)
         self.mbox.addLayout(self.hbox1)
         self.mbox.addLayout(self.hbox2)
         self.setLayout(self.mbox)
@@ -65,8 +56,6 @@ class MainPage(QWidget):
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
-
-
 
         #SHOW EVERYTHING
         self.show()
@@ -95,14 +84,6 @@ class MainPage(QWidget):
         self.displayPicHolder.setPixmap(self.displayPic)
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
-    #*******************************************************************************************************
-    # Summary: This function will apply the Sepia filter to picToEdit.
-    # def applySepiaFilter(self):
-
-    #*******************************************************************************************************
-    # Summary: This function will apply the Negative filter to picToEdit.
-    def applyNegativeFilter(self):
-        self.Negative(picToEdit)
     #*******************************************************************************************************
 
 
