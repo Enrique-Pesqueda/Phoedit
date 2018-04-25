@@ -65,9 +65,7 @@ class MainPage(QWidget):
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
-        self.sepiaButton.clicked.connect(self.applySepiaFilter)
-        self.negativeButton.clicked.connect(self.applyNegativeFilter)
-        self.grayButton.clicked.connect(self.applyGrayFilter)
+
 
 
         #SHOW EVERYTHING
@@ -99,16 +97,19 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicHolder)
     #*******************************************************************************************************
     # Summary: This function will apply the Sepia filter to picToEdit.
-    def applySepiaFilter(self):
-        self.Sepia(picToEdit)
+    # def applySepiaFilter(self):
+
     #*******************************************************************************************************
     # Summary: This function will apply the Negative filter to picToEdit.
     def applyNegativeFilter(self):
         self.Negative(picToEdit)
     #*******************************************************************************************************
+
+
+    #*******************************************************************************************************
     # Summary: This function will apply the Gray filter to picToEdit.
-    def applyGrayFilter(self):
-        self.Gray(picToEdit)
+    # def applyGrayFilter(self):
+
     #*******************************************************************************************************
 
 app = QApplication(sys.argv)
