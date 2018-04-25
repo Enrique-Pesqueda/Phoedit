@@ -9,7 +9,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
-class FilterPic(QWidget):
+class FilterFunctions(QWidget):
 
 	def Gray(self, img):
 		for x in range(img.width()):

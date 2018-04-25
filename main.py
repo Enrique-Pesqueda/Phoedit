@@ -5,12 +5,12 @@
 # Description: This is the main file that brings all of the pyqt layouts together to create the completed GUI.
 #*******************************************************************************************************
 import sys
-from FileExplorer import FileExplorer
 from PyQt5.QtWidgets import *
 from PIL import Image
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from filterFunctions import FilterPic
+from FileExplorer import FileExplorer
+from FilterFunctions import FilterFunctions
 
 class MainPage(QWidget):
     #*******************************************************************************************************
@@ -37,27 +37,29 @@ class MainPage(QWidget):
         self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
         self.fileExplorerButton = QPushButton('Choose Image to Edit')
-        
-        
         self.vbox1 = QVBoxLayout()
         self.vbox1.addWidget(self.fileExplorerButton)
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
-        
-        
+
+
         #FILTER FUNCTIONS LAYOUT
         self.sepiaButton = QPushButton('Sepia', self)
-        self.sepiaButton.move(50,550)
         self.negativeButton = QPushButton('Negative', self)
-        self.negativeButton.move(150, 550)
         self.grayButton = QPushButton('Gray', self)
-        self.grayButton.move(250, 550)
-        
-    
-    
+        self.vbox3 = QVBoxLayout()
+        self.vbox3.addWidget(self.sepiaButton)
+        self.vbox3.addWidget(self.negativeButton)
+        self.vbox3.addWidget(self.grayButton)
+
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
-        self.mbox.addLayout(self.vbox1)
+        self.hbox1 = QHBoxLayout()
+        self.hbox2 = QHBoxLayout()
+        self.hbox1.addLayout(self.vbox1)
+        self.hbox2.addLayout(self.vbox3)
+        self.mbox.addLayout(self.hbox1)
+        self.mbox.addLayout(self.hbox2)
         self.setLayout(self.mbox)
         self.setGeometry(0, 0, 800, 600)
 
@@ -96,20 +98,13 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
     #*******************************************************************************************************
-
-    #*******************************************************************************************************
     # Summary: This function will apply the Sepia filter to picToEdit.
     def applySepiaFilter(self):
         self.Sepia(picToEdit)
     #*******************************************************************************************************
-    
-    #*******************************************************************************************************
     # Summary: This function will apply the Negative filter to picToEdit.
     def applyNegativeFilter(self):
         self.Negative(picToEdit)
-        
-    #*******************************************************************************************************
-    
     #*******************************************************************************************************
     # Summary: This function will apply the Gray filter to picToEdit.
     def applyGrayFilter(self):
