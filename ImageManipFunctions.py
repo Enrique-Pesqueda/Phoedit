@@ -32,6 +32,7 @@ class ImageManipFunctions():
         im = Image.open(destination)
         im.putdata(new_list)
         im.save(destination)
+        return new_list
 
     def greenSaturation(imageData, value, destination):
         new_list = []
@@ -40,24 +41,26 @@ class ImageManipFunctions():
             greenPixel = pixel[1] + value
             if greenPixel > 255:
                 greenPixel = 255
-            temp = (pixel[0],pixel[1],pixel[2])
+            temp = (pixel[0],greenPixel,pixel[2])
             new_list.append(temp)
         im = Image.open(destination)
         im.putdata(new_list)
         im.save(destination)
+        return new_list
 
     def blueSaturation(imageData, value, destination):
         new_list = []
         bluePixel = 0
         for pixel in imageData:
             bluePixel = pixel[2] + value
-            if pixel[2] > 255:
-                pixel[2] = 255
-            temp = (pixel[0],pixel[1],pixel[2])
+            if bluePixel > 255:
+                bluePixel = 255
+            temp = (pixel[0],pixel[1],bluePixel)
             new_list.append(temp)
         im = Image.open(destination)
         im.putdata(new_list)
         im.save(destination)
+        return new_list
 #*******************************************************************************************************
 # Summary: RGB vibrance functions take in a pillow image object and a value
 #          the getdata() method is used to be able to alter a specific color channel

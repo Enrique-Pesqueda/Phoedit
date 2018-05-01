@@ -83,8 +83,6 @@ class MainPage(QWidget):
         self.s2.valueChanged.connect(self.greenValueChange)
         self.s3.valueChanged.connect(self.blueValueChange)
 
-
-
         #SHOW EVERYTHING
         self.show()
     #*******************************************************************************************************
@@ -155,8 +153,6 @@ class MainPage(QWidget):
         self.s1.valueChanged.connect(self.redValueChange)
         self.s2.valueChanged.connect(self.greenValueChange)
         self.s3.valueChanged.connect(self.blueValueChange)
-
-
     #*******************************************************************************************************
     # Summary: Links to RGB saturation sliders and calls image manipulation functions  from
     #          ImageManipFunctions class.
@@ -165,7 +161,7 @@ class MainPage(QWidget):
         value = self.s1.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.redSaturationValue)
-        ImageManipFunctions.redSaturation(self.picToEditData, value, self.destination)
+        self.picToEditData = ImageManipFunctions.redSaturation(self.picToEditData, value, self.destination)
         self.redSaturationValue = temp
         self.updateMainPage()
 
@@ -174,17 +170,18 @@ class MainPage(QWidget):
         value = self.s2.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.greenSaturationValue)
-        ImageManipFunctions.greenSaturation(self.picToEditData, value, self.destination)
+        self.picToEditData = ImageManipFunctions.greenSaturation(self.picToEditData, value, self.destination)
         self.greenSaturationValue = temp
+        self.updateMainPage()
 
     @pyqtSlot()
     def blueValueChange(self):
         value = self.s3.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.blueSaturationValue)
-        ImageManipFunctions.blueSaturationValue(self.picToEditData, value, self.destination)
+        self.picToEditData = ImageManipFunctions.blueSaturation(self.picToEditData, value, self.destination)
         self.blueSaturationValue = temp
-
+        self.updateMainPage()
     #*******************************************************************************************************
 
 
