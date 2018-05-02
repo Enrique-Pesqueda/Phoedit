@@ -23,13 +23,13 @@ class MainPage(QWidget):
         self.setWindowTitle("phoEDIT")
         self.setAutoFillBackground(True)
         p = self.palette()
-        p.setColor(self.backgroundRole(), Qt.black)
+        p.setColor(self.backgroundRole(), Qt.darkGray)
         self.setPalette(p)
 
         #IMPORTANT VARIABLES
         self.picToEditData = []
         self.originalPic = 'images/noImageSelected.jpg'
-        self.destination = ''
+        self.destination = 'images/noImageSelected.jpg'
         self.redSaturationValue = 0
         self.greenSaturationValue = 0
         self.blueSaturationValue = 0
