@@ -29,7 +29,7 @@ class MainPage(QWidget):
         #IMPORTANT VARIABLES
         self.picToEditData = []
         self.originalPic = 'images/noImageSelected.jpg'
-        self.destination = ''
+        self.destination = 'images/noImageSelected.jpg'
         self.redSaturationValue = 0
         self.greenSaturationValue = 0
         self.blueSaturationValue = 0
