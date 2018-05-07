@@ -33,6 +33,9 @@ class MainPage(QWidget):
         self.redSaturationValue = 0
         self.greenSaturationValue = 0
         self.blueSaturationValue = 0
+        self.redVibranceValue = 0
+        self.greenVibranceValue = 0
+        self.blueVibranceValue = 0
 
         #FILE EXPLORER / IMAGE DISPLAY LAYOUT
         self.displayPicText = QLabel(self.originalPic)
@@ -46,8 +49,13 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
 
+
+
         #IMAGE MANIPULATION SLIDERS LAYOUT
-        self.vbox2 = QVBoxLayout()
+            #saturation sliders
+        self.vbox2 = QHBoxLayout()
+        self.sliderbox = QVBoxLayout()
+        self.saturationBox = QVBoxLayout()
         self.s1 = QSlider(Qt.Horizontal, self)
         self.s1.setMinimum(-50)
         self.s1.setMaximum(50)
@@ -66,9 +74,35 @@ class MainPage(QWidget):
         self.s3.setValue(0)
         self.s3.setTickPosition(QSlider.TicksBelow)
         self.s3.setTickInterval(5)
-        self.vbox2.addWidget(self.s1)
-        self.vbox2.addWidget(self.s2)
-        self.vbox2.addWidget(self.s3)
+        self.saturationBox.addWidget(self.s1)
+        self.saturationBox.addWidget(self.s2)
+        self.saturationBox.addWidget(self.s3)
+            #vibrance sliders
+        self.vibranceBox = QVBoxLayout()
+        self.s4 = QSlider(Qt.Horizontal, self)
+        self.s4.setMinimum(0)
+        self.s4.setMaximum(50)
+        self.s4.setValue(0)
+        self.s4.setTickPosition(QSlider.TicksBelow)
+        self.s4.setTickInterval(5)
+        self.s5 = QSlider(Qt.Horizontal, self)
+        self.s5.setMinimum(0)
+        self.s5.setMaximum(50)
+        self.s5.setValue(0)
+        self.s5.setTickPosition(QSlider.TicksBelow)
+        self.s5.setTickInterval(5)
+        self.s6 = QSlider(Qt.Horizontal, self)
+        self.s6.setMinimum(0)
+        self.s6.setMaximum(50)
+        self.s6.setValue(0)
+        self.s6.setTickPosition(QSlider.TicksBelow)
+        self.s6.setTickInterval(5)
+        self.vibranceBox.addWidget(self.s4)
+        self.vibranceBox.addWidget(self.s5)
+        self.vibranceBox.addWidget(self.s6)
+        self.sliderbox.addLayout(self.saturationBox)
+        self.sliderbox.addLayout(self.vibranceBox)
+        self.vbox2.addLayout(self.sliderbox)
 
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
@@ -79,9 +113,12 @@ class MainPage(QWidget):
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
-        self.s1.valueChanged.connect(self.redValueChange)
-        self.s2.valueChanged.connect(self.greenValueChange)
-        self.s3.valueChanged.connect(self.blueValueChange)
+        self.s1.valueChanged.connect(self.redSaturationChange)
+        self.s2.valueChanged.connect(self.greenSaturationChange)
+        self.s3.valueChanged.connect(self.blueSaturationChange)
+        self.s4.valueChanged.connect(self.redVibranceChange)
+        self.s5.valueChanged.connect(self.greenVibranceChange)
+        self.s6.valueChanged.connect(self.blueVibranceChange)
 
         #SHOW EVERYTHING
         self.show()
@@ -99,6 +136,9 @@ class MainPage(QWidget):
         self.redSaturationValue = 0
         self.greenSaturationValue = 0
         self.blueSaturationValue = 0
+        self.redVibranceValue = 0
+        self.greenVibranceValue = 0
+        self.blueVibranceValue = 0
         self.updateMainPage()
     #*******************************************************************************************************
     # Summary: This function updates the main display by deleting widgets adding new widgets with updated
@@ -112,12 +152,18 @@ class MainPage(QWidget):
         self.vbox1.removeWidget(self.displayPicHolder)
         self.displayPicHolder.deleteLater()
             #image manipulation sliders layout
-        self.vbox2.removeWidget(self.s1)
+        self.saturationBox.removeWidget(self.s1)
         self.s1.deleteLater()
-        self.vbox2.removeWidget(self.s2)
+        self.saturationBox.removeWidget(self.s2)
         self.s2.deleteLater()
-        self.vbox2.removeWidget(self.s3)
+        self.saturationBox.removeWidget(self.s3)
         self.s3.deleteLater()
+        self.vibranceBox.removeWidget(self.s4)
+        self.s4.deleteLater()
+        self.vibranceBox.removeWidget(self.s5)
+        self.s5.deleteLater()
+        self.vibranceBox.removeWidget(self.s6)
+        self.s6.deleteLater()
 
         #CREATES NEW GUI
             #adds picture diplay and picture path text
@@ -129,35 +175,75 @@ class MainPage(QWidget):
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
             #adds new rgb sliders
+                #saturation sliders
         self.s1 = QSlider(Qt.Horizontal, self)
+        self.redLabel1 = QLabel(self.s1)
+        self.redLabel1.setText('Red')
         self.s1.setMinimum(-50)
         self.s1.setMaximum(50)
         self.s1.setValue(self.redSaturationValue)
         self.s1.setTickPosition(QSlider.TicksBelow)
         self.s1.setTickInterval(5)
         self.s2 = QSlider(Qt.Horizontal, self)
+        self.greenLabel1 = QLabel(self.s2)
+        self.greenLabel1.setText('Green')
         self.s2.setMinimum(-50)
         self.s2.setMaximum(50)
         self.s2.setValue(self.greenSaturationValue)
         self.s2.setTickPosition(QSlider.TicksBelow)
         self.s2.setTickInterval(5)
         self.s3 = QSlider(Qt.Horizontal, self)
+        self.blueLabel1 = QLabel(self.s3)
+        self.blueLabel1.setText('Blue')
         self.s3.setMinimum(-50)
         self.s3.setMaximum(50)
         self.s3.setValue(self.blueSaturationValue)
         self.s3.setTickPosition(QSlider.TicksBelow)
         self.s3.setTickInterval(5)
-        self.vbox2.addWidget(self.s1)
-        self.vbox2.addWidget(self.s2)
-        self.vbox2.addWidget(self.s3)
-        self.s1.valueChanged.connect(self.redValueChange)
-        self.s2.valueChanged.connect(self.greenValueChange)
-        self.s3.valueChanged.connect(self.blueValueChange)
+        self.saturationBox.addWidget(self.s1)
+        self.saturationBox.addWidget(self.s2)
+        self.saturationBox .addWidget(self.s3)
+        self.s1.valueChanged.connect(self.redSaturationChange)
+        self.s2.valueChanged.connect(self.greenSaturationChange)
+        self.s3.valueChanged.connect(self.blueSaturationChange)
+                #vibrance sliders
+        self.s4 = QSlider(Qt.Horizontal, self)
+        self.redLabel2 = QLabel(self.s4)
+        self.redLabel2.setText('Red')
+        self.s4.setMinimum(0)
+        self.s4.setMaximum(50)
+        self.s4.setValue(self.redVibranceValue)
+        self.s4.setTickPosition(QSlider.TicksBelow)
+        self.s4.setTickInterval(5)
+        self.s5 = QSlider(Qt.Horizontal, self)
+        self.greenLabel2 = QLabel(self.s5)
+        self.greenLabel2.setText('Green')
+        self.s5.setMinimum(0)
+        self.s5.setMaximum(50)
+        self.s5.setValue(self.greenVibranceValue)
+        self.s5.setTickPosition(QSlider.TicksBelow)
+        self.s5.setTickInterval(5)
+        self.s6 = QSlider(Qt.Horizontal, self)
+        self.blueLabel2 = QLabel(self.s6)
+        self.blueLabel2.setText('Blue')
+        self.s6.setMinimum(0)
+        self.s6.setMaximum(50)
+        self.s6.setValue(self.blueVibranceValue)
+        self.s6.setTickPosition(QSlider.TicksBelow)
+        self.s6.setTickInterval(5)
+        self.vibranceBox.addWidget(self.s4)
+        self.vibranceBox.addWidget(self.s5)
+        self.vibranceBox.addWidget(self.s6)
+        self.s4.valueChanged.connect(self.redVibranceChange)
+        self.s5.valueChanged.connect(self.greenVibranceChange)
+        self.s6.valueChanged.connect(self.blueVibranceChange)
+
+
     #*******************************************************************************************************
     # Summary: Links to RGB saturation sliders and calls image manipulation functions  from
     #          ImageManipFunctions class.
     @pyqtSlot()
-    def redValueChange(self):
+    def redSaturationChange(self):
         value = self.s1.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.redSaturationValue)
@@ -166,7 +252,7 @@ class MainPage(QWidget):
         self.updateMainPage()
 
     @pyqtSlot()
-    def greenValueChange(self):
+    def greenSaturationChange(self):
         value = self.s2.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.greenSaturationValue)
@@ -175,13 +261,41 @@ class MainPage(QWidget):
         self.updateMainPage()
 
     @pyqtSlot()
-    def blueValueChange(self):
+    def blueSaturationChange(self):
         value = self.s3.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.blueSaturationValue)
         self.picToEditData = ImageManipFunctions.blueSaturation(self.picToEditData, value, self.destination)
         self.blueSaturationValue = temp
         self.updateMainPage()
+
+    @pyqtSlot()
+    def redVibranceChange(self):
+        value = self.s4.value()
+        temp = value
+        value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.redVibranceValue)
+        self.picToEditData = ImageManipFunctions.redVibrance(self.picToEditData, value, self.destination)
+        self.redVibranceValue = temp
+        self.updateMainPage()
+
+    @pyqtSlot()
+    def greenVibranceChange(self):
+        value = self.s5.value()
+        temp = value
+        value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.greenVibranceValue)
+        self.picToEditData = ImageManipFunctions.greenVibrance(self.picToEditData, value, self.destination)
+        self.greenVibranceValue = temp
+        self.updateMainPage()
+
+    @pyqtSlot()
+    def blueVibranceChange(self):
+        value = self.s6.value()
+        temp = value
+        value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.greenVibranceValue)
+        self.picToEditData = ImageManipFunctions.blueVibrance(self.picToEditData, value, self.destination)
+        self.blueVibranceValue = temp
+        self.updateMainPage()
+
     #*******************************************************************************************************
 
 
