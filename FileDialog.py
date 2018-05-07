@@ -18,6 +18,8 @@ class FileDialog(QWidget):
         fileName, _ = QFileDialog.getOpenFileName(self,"Select Photo to Edit", "","JPG Files (*.jpg);;PNG Files (*.png)", options=options)
         if fileName:
             return fileName
+        else:
+            return False
     #*******************************************************************************************************
     # Summary: This function find the file extension of an image fileself.
     def fileExtensionGrabber(originalPic):

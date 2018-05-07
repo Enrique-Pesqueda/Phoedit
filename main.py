@@ -38,10 +38,10 @@ class MainPage(QWidget):
         self.blueVibranceValue = 0
 
         #FILE EXPLORER / IMAGE DISPLAY LAYOUT
-        self.displayPicText = QLabel(self.originalPic)
+        self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
         self.displayPic = QPixmap(self.originalPic)
-        self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
+        self.displayPic = self.displayPic.scaled(400, 400, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
         self.fileExplorerButton = QPushButton('Choose Image to Edit')
         self.vbox1 = QVBoxLayout()
@@ -128,7 +128,10 @@ class MainPage(QWidget):
     #          file.
     @pyqtSlot()
     def openFileExplorerWindow(self):
+        ogPicHolder = self.originalPic
         self.originalPic = FileDialog.openFileNameDialog(self)
+        if self.originalPic == False:
+            self.originalPic = ogPicHolder
         self.destination = 'images/001' + FileDialog.fileExtensionGrabber(self.originalPic)
         im = Image.open(self.originalPic)
         im.save(self.destination)
@@ -167,10 +170,10 @@ class MainPage(QWidget):
 
         #CREATES NEW GUI
             #adds picture diplay and picture path text
-        self.displayPicText = QLabel(self.originalPic)
+        self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
         self.displayPic = QPixmap(self.destination)
-        self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
+        self.displayPic = self.displayPic.scaled(400, 400, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
         self.vbox1.addWidget(self.displayPicText)
         self.vbox1.addWidget(self.displayPicHolder)
