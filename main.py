@@ -136,11 +136,11 @@ class MainPage(QWidget):
         self.sliderbox.addLayout(self.saturationBox)
         self.sliderbox.addLayout(self.vibranceBox)
         self.vbox2.addLayout(self.sliderbox)
-        
+
         #BUTTON FOR REVERT
         self.revertButton = QPushButton("Revert")
         self.vbox1.addWidget(self.revertButton)
-        
+
         #FILTER DROP BOX LAYOUT
         self.my_combo_box = QComboBox()
         self.my_combo_box.addItem("Choose a Filter")
@@ -148,22 +148,12 @@ class MainPage(QWidget):
         self.my_combo_box.addItem(QIcon(self.originalPic), "Gray")
         self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
         self.vbox1.addWidget(self.my_combo_box)
-        
-       
-
-        
-
 
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
         self.mbox.addLayout(self.vbox1)
         self.mbox.addLayout(self.vbox2)
         self.setLayout(self.mbox)
-<<<<<<< HEAD
-        self.setGeometry(0, 0, 800, 800)
-=======
-        self.setGeometry(100, 100, 800, 600)
->>>>>>> d026d3d905379bcd1cc3b2870fb0c210574eb1ad
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
@@ -224,7 +214,6 @@ class MainPage(QWidget):
         self.s5.deleteLater()
         self.vibranceBox.removeWidget(self.s6)
         self.s6.deleteLater()
-<<<<<<< HEAD
             #filter dropbox layout
         self.vbox1.removeWidget(self.my_combo_box)
         self.my_combo_box.deleteLater()
@@ -232,7 +221,6 @@ class MainPage(QWidget):
         self.vbox1.removeWidget(self.revertButton)
         self.revertButton.deleteLater()
 
-=======
         self.vibranceBox.removeWidget(self.s123Type)
         self.s123Type.deleteLater()
         self.vibranceBox.removeWidget(self.s1Text)
@@ -249,7 +237,6 @@ class MainPage(QWidget):
         self.s5Text.deleteLater()
         self.vibranceBox.removeWidget(self.s6Text)
         self.s6Text.deleteLater()
->>>>>>> d026d3d905379bcd1cc3b2870fb0c210574eb1ad
 
         #CREATES NEW GUI
             #adds picture diplay and picture path text
@@ -444,7 +431,7 @@ class MainPage(QWidget):
         self.greenVibranceValue = 0
         self.blueVibranceValue = 0
         self.updateMainPage()
-    @pyqtSlot()    
+    @pyqtSlot()
     def applyNegativeFilter(self):
         print("Negative Filter Applied")
         im = Image.open(self.originalPic)
@@ -458,8 +445,8 @@ class MainPage(QWidget):
         self.blueVibranceValue = 0
         self.updateMainPage()
     #*******************************************************************************************************
-    # Summary: 
-    @pyqtSlot()    
+    # Summary:
+    @pyqtSlot()
     def revertToOrigin(self):
         print("Image reverted")
         im = Image.open(self.originalPic)
@@ -473,7 +460,7 @@ class MainPage(QWidget):
         self.blueVibranceValue = 0
         self.updateMainPage()
 
-        
+
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
     # Summary:
