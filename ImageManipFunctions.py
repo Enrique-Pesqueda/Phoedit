@@ -106,11 +106,11 @@ class ImageManipFunctions():
     def blueVibrance(imageData, value, destination):
         new_list = []
         for pixel in imageData:
-            if(pixel[2] > pixel[1] and pixel[2] > pixel[0]):
+            if pixel[2] > pixel[1] and pixel[2] > pixel[0]:
                 bluePixel = pixel[2] + (value * 2)
                 if bluePixel > 255:
                     bluePixel = 255
-                redPixel = pixel[1] - value
+                redPixel = pixel[0] - value
                 greenPixel = pixel[1] -  value
                 temp = (redPixel,greenPixel,bluePixel)
             else:
