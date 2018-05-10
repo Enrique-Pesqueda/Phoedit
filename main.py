@@ -38,19 +38,33 @@ class MainPage(QWidget):
         self.greenVibranceValue = 0
         self.blueVibranceValue = 0
 
-        #FILE EXPLORER / IMAGE DISPLAY LAYOUT
-        self.displayPicText = QLabel(self.originalPic)
+        #FILE EXPLORER / IMAGE DISPLAY / HISTOGRAM LAYOUT
+        self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
         self.displayPic = QPixmap(self.originalPic)
-        self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
+        self.displayPic = self.displayPic.scaled(400, 400, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
         self.fileExplorerButton = QPushButton('Choose Image to Edit')
-        self.vbox1 = QVBoxLayout()
-        self.vbox1.addWidget(self.fileExplorerButton)
-        self.vbox1.addWidget(self.displayPicText)
-        self.vbox1.addWidget(self.displayPicHolder)
-
-
+            #main upper box
+        self.vbox1 = QHBoxLayout()
+        self.leftUpperBox = QVBoxLayout()
+            #left box inside of vbox1
+        self.leftUpperBox.addWidget(self.fileExplorerButton)
+        self.leftUpperBox.addWidget(self.displayPicText)
+        self.leftUpperBox.addWidget(self.displayPicHolder)
+            #rght box inside vbox1
+        self.rightUpperBox = QHBoxLayout()
+        self.redHistogramHolder = QLabel()
+        self.redHistogram = QPixmap()
+        self.greenHistogramHolder = QLabel()
+        self.greenHistogram = QPixmap()
+        self.blueHistogramHolder = QLabel()
+        self.blueHistogram = QPixmap()
+        self.rightUpperBox.addWidget(self.redHistogramHolder)
+        self.rightUpperBox.addWidget(self.greenHistogramHolder)
+        self.rightUpperBox.addWidget(self.blueHistogramHolder)
+        self.vbox1.addLayout(self.leftUpperBox)
+        self.vbox1.addLayout(self.rightUpperBox)
 
         #IMAGE MANIPULATION SLIDERS LAYOUT
             #saturation sliders
@@ -63,20 +77,29 @@ class MainPage(QWidget):
         self.s1.setValue(0)
         self.s1.setTickPosition(QSlider.TicksBelow)
         self.s1.setTickInterval(5)
+        self.s1Text = QLabel('Red')
         self.s2 = QSlider(Qt.Horizontal, self)
         self.s2.setMinimum(-50)
         self.s2.setMaximum(50)
         self.s2.setValue(0)
         self.s2.setTickPosition(QSlider.TicksBelow)
         self.s2.setTickInterval(5)
+        self.s2Text = QLabel('Green')
         self.s3 = QSlider(Qt.Horizontal, self)
         self.s3.setMinimum(-50)
         self.s3.setMaximum(50)
         self.s3.setValue(0)
         self.s3.setTickPosition(QSlider.TicksBelow)
         self.s3.setTickInterval(5)
+        self.s3Text = QLabel('Blue')
+        self.s123Type = QLabel('Saturation')
+        self.s123Type.setFont(QFont('SansSerif', 15))
+        self.saturationBox.addWidget(self.s123Type)
+        self.saturationBox.addWidget(self.s1Text)
         self.saturationBox.addWidget(self.s1)
+        self.saturationBox.addWidget(self.s2Text)
         self.saturationBox.addWidget(self.s2)
+        self.saturationBox.addWidget(self.s3Text)
         self.saturationBox.addWidget(self.s3)
             #vibrance sliders
         self.vibranceBox = QVBoxLayout()
@@ -86,20 +109,29 @@ class MainPage(QWidget):
         self.s4.setValue(0)
         self.s4.setTickPosition(QSlider.TicksBelow)
         self.s4.setTickInterval(5)
+        self.s4Text = QLabel('Red')
         self.s5 = QSlider(Qt.Horizontal, self)
         self.s5.setMinimum(0)
         self.s5.setMaximum(50)
         self.s5.setValue(0)
         self.s5.setTickPosition(QSlider.TicksBelow)
         self.s5.setTickInterval(5)
+        self.s5Text = QLabel('Green')
         self.s6 = QSlider(Qt.Horizontal, self)
         self.s6.setMinimum(0)
         self.s6.setMaximum(50)
         self.s6.setValue(0)
         self.s6.setTickPosition(QSlider.TicksBelow)
         self.s6.setTickInterval(5)
+        self.s6Text = QLabel('Blue')
+        self.s456Type = QLabel('Vibrance')
+        self.s456Type.setFont(QFont('SansSerif', 15))
+        self.vibranceBox.addWidget(self.s456Type)
+        self.vibranceBox.addWidget(self.s4Text)
         self.vibranceBox.addWidget(self.s4)
+        self.vibranceBox.addWidget(self.s5Text)
         self.vibranceBox.addWidget(self.s5)
+        self.vibranceBox.addWidget(self.s6Text)
         self.vibranceBox.addWidget(self.s6)
         self.sliderbox.addLayout(self.saturationBox)
         self.sliderbox.addLayout(self.vibranceBox)
@@ -127,7 +159,11 @@ class MainPage(QWidget):
         self.mbox.addLayout(self.vbox1)
         self.mbox.addLayout(self.vbox2)
         self.setLayout(self.mbox)
+<<<<<<< HEAD
         self.setGeometry(0, 0, 800, 800)
+=======
+        self.setGeometry(100, 100, 800, 600)
+>>>>>>> d026d3d905379bcd1cc3b2870fb0c210574eb1ad
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
@@ -149,7 +185,10 @@ class MainPage(QWidget):
     #          file.
     @pyqtSlot()
     def openFileExplorerWindow(self):
+        ogPicHolder = self.originalPic
         self.originalPic = FileDialog.openFileNameDialog(self)
+        if self.originalPic == False:
+            self.originalPic = ogPicHolder
         self.destination = 'images/001' + FileDialog.fileExtensionGrabber(self.originalPic)
         im = Image.open(self.originalPic)
         im.save(self.destination)
@@ -168,9 +207,9 @@ class MainPage(QWidget):
 
         #DELETES EVERYTHING IN GUI
             #file explore / image display layout
-        self.vbox1.removeWidget(self.displayPicText)
+        self.leftUpperBox.removeWidget(self.displayPicText)
         self.displayPicText.deleteLater()
-        self.vbox1.removeWidget(self.displayPicHolder)
+        self.leftUpperBox.removeWidget(self.displayPicHolder)
         self.displayPicHolder.deleteLater()
             #image manipulation sliders layout
         self.saturationBox.removeWidget(self.s1)
@@ -185,6 +224,7 @@ class MainPage(QWidget):
         self.s5.deleteLater()
         self.vibranceBox.removeWidget(self.s6)
         self.s6.deleteLater()
+<<<<<<< HEAD
             #filter dropbox layout
         self.vbox1.removeWidget(self.my_combo_box)
         self.my_combo_box.deleteLater()
@@ -192,21 +232,40 @@ class MainPage(QWidget):
         self.vbox1.removeWidget(self.revertButton)
         self.revertButton.deleteLater()
 
+=======
+        self.vibranceBox.removeWidget(self.s123Type)
+        self.s123Type.deleteLater()
+        self.vibranceBox.removeWidget(self.s1Text)
+        self.s1Text.deleteLater()
+        self.vibranceBox.removeWidget(self.s2Text)
+        self.s2Text.deleteLater()
+        self.vibranceBox.removeWidget(self.s3Text)
+        self.s3Text.deleteLater()
+        self.vibranceBox.removeWidget(self.s456Type)
+        self.s456Type.deleteLater()
+        self.vibranceBox.removeWidget(self.s4Text)
+        self.s4Text.deleteLater()
+        self.vibranceBox.removeWidget(self.s5Text)
+        self.s5Text.deleteLater()
+        self.vibranceBox.removeWidget(self.s6Text)
+        self.s6Text.deleteLater()
+>>>>>>> d026d3d905379bcd1cc3b2870fb0c210574eb1ad
 
         #CREATES NEW GUI
             #adds picture diplay and picture path text
-        self.displayPicText = QLabel(self.originalPic)
+        self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
         self.displayPic = QPixmap(self.destination)
-        self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
+        self.displayPic = self.displayPic.scaled(400, 400, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
-        self.vbox1.addWidget(self.displayPicText)
-        self.vbox1.addWidget(self.displayPicHolder)
+        self.leftUpperBox.addWidget(self.displayPicText)
+        self.leftUpperBox.addWidget(self.displayPicHolder)
+        # self.vbox1.addLayout(self.leftUpperBox)
             #adds new rgb sliders
                 #saturation sliders
         self.s1 = QSlider(Qt.Horizontal, self)
         self.redLabel1 = QLabel(self.s1)
-        self.redLabel1.setText('Red')
+        self.s1Text = QLabel('Red')
         self.s1.setMinimum(-50)
         self.s1.setMaximum(50)
         self.s1.setValue(self.redSaturationValue)
@@ -214,7 +273,7 @@ class MainPage(QWidget):
         self.s1.setTickInterval(5)
         self.s2 = QSlider(Qt.Horizontal, self)
         self.greenLabel1 = QLabel(self.s2)
-        self.greenLabel1.setText('Green')
+        self.s2Text = QLabel('Green')
         self.s2.setMinimum(-50)
         self.s2.setMaximum(50)
         self.s2.setValue(self.greenSaturationValue)
@@ -222,14 +281,20 @@ class MainPage(QWidget):
         self.s2.setTickInterval(5)
         self.s3 = QSlider(Qt.Horizontal, self)
         self.blueLabel1 = QLabel(self.s3)
-        self.blueLabel1.setText('Blue')
+        self.s3Text = QLabel('Blue')
         self.s3.setMinimum(-50)
         self.s3.setMaximum(50)
         self.s3.setValue(self.blueSaturationValue)
         self.s3.setTickPosition(QSlider.TicksBelow)
         self.s3.setTickInterval(5)
+        self.s123Type = QLabel('Saturation')
+        self.s123Type.setFont(QFont('SansSerif', 15))
+        self.saturationBox.addWidget(self.s123Type)
+        self.saturationBox.addWidget(self.s1Text)
         self.saturationBox.addWidget(self.s1)
+        self.saturationBox.addWidget(self.s2Text)
         self.saturationBox.addWidget(self.s2)
+        self.saturationBox.addWidget(self.s3Text)
         self.saturationBox .addWidget(self.s3)
         self.s1.valueChanged.connect(self.redSaturationChange)
         self.s2.valueChanged.connect(self.greenSaturationChange)
@@ -237,7 +302,7 @@ class MainPage(QWidget):
                 #vibrance sliders
         self.s4 = QSlider(Qt.Horizontal, self)
         self.redLabel2 = QLabel(self.s4)
-        self.redLabel2.setText('Red')
+        self.s4Text = QLabel('Red')
         self.s4.setMinimum(0)
         self.s4.setMaximum(50)
         self.s4.setValue(self.redVibranceValue)
@@ -245,7 +310,7 @@ class MainPage(QWidget):
         self.s4.setTickInterval(5)
         self.s5 = QSlider(Qt.Horizontal, self)
         self.greenLabel2 = QLabel(self.s5)
-        self.greenLabel2.setText('Green')
+        self.s5Text = QLabel('Green')
         self.s5.setMinimum(0)
         self.s5.setMaximum(50)
         self.s5.setValue(self.greenVibranceValue)
@@ -253,14 +318,19 @@ class MainPage(QWidget):
         self.s5.setTickInterval(5)
         self.s6 = QSlider(Qt.Horizontal, self)
         self.blueLabel2 = QLabel(self.s6)
-        self.blueLabel2.setText('Blue')
+        self.s6Text = QLabel('Blue')
         self.s6.setMinimum(0)
         self.s6.setMaximum(50)
         self.s6.setValue(self.blueVibranceValue)
         self.s6.setTickPosition(QSlider.TicksBelow)
         self.s6.setTickInterval(5)
+        self.s456Type = QLabel('Vibrance')
+        self.vibranceBox.addWidget(self.s456Type)
+        self.vibranceBox.addWidget(self.s4Text)
         self.vibranceBox.addWidget(self.s4)
+        self.vibranceBox.addWidget(self.s5Text)
         self.vibranceBox.addWidget(self.s5)
+        self.vibranceBox.addWidget(self.s6Text)
         self.vibranceBox.addWidget(self.s6)
         self.s4.valueChanged.connect(self.redVibranceChange)
         self.s5.valueChanged.connect(self.greenVibranceChange)
@@ -277,7 +347,6 @@ class MainPage(QWidget):
         self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
         self.vbox1.addWidget(self.my_combo_box)
         self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
-
 
     #*******************************************************************************************************
     # Summary: Links to RGB saturation sliders and calls image manipulation functions  from
@@ -311,9 +380,11 @@ class MainPage(QWidget):
 
     @pyqtSlot()
     def redVibranceChange(self):
+        print(self.redSaturationValue)
         value = self.s4.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.redVibranceValue)
+        print(value)
         self.picToEditData = ImageManipFunctions.redVibrance(self.picToEditData, value, self.destination)
         self.redVibranceValue = temp
         self.updateMainPage()
