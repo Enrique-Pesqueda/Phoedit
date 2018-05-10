@@ -42,33 +42,35 @@ class MainPage(QWidget):
         self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
         self.displayPic = QPixmap(self.originalPic)
-        self.displayPic = self.displayPic.scaled(400, 400, Qt.KeepAspectRatio)
+        self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
         self.fileExplorerButton = QPushButton('Choose Image to Edit')
             #main upper box
-        self.vbox1 = QHBoxLayout()
-        self.leftUpperBox = QVBoxLayout()
-            #left box inside of vbox1
-        self.leftUpperBox.addWidget(self.fileExplorerButton)
-        self.leftUpperBox.addWidget(self.displayPicText)
-        self.leftUpperBox.addWidget(self.displayPicHolder)
-            #rght box inside vbox1
-        self.rightUpperBox = QHBoxLayout()
+        self.topBox = QHBoxLayout()
+        self.leftTopBox = QVBoxLayout()
+            #left box inside of topBox
+        self.leftTopBox.addWidget(self.fileExplorerButton)
+        self.leftTopBox.addWidget(self.displayPicText)
+        self.leftTopBox.addWidget(self.displayPicHolder)
+            #rght box inside topBox
+        self.rightTopBox = QHBoxLayout()
         self.redHistogramHolder = QLabel()
         self.redHistogram = QPixmap()
         self.greenHistogramHolder = QLabel()
         self.greenHistogram = QPixmap()
         self.blueHistogramHolder = QLabel()
         self.blueHistogram = QPixmap()
-        self.rightUpperBox.addWidget(self.redHistogramHolder)
-        self.rightUpperBox.addWidget(self.greenHistogramHolder)
-        self.rightUpperBox.addWidget(self.blueHistogramHolder)
-        self.vbox1.addLayout(self.leftUpperBox)
-        self.vbox1.addLayout(self.rightUpperBox)
+        self.rightTopBox.addWidget(self.redHistogramHolder)
+        self.rightTopBox.addWidget(self.greenHistogramHolder)
+        self.rightTopBox.addWidget(self.blueHistogramHolder)
+        self.topBox.addLayout(self.leftTopBox)
+        self.topBox.addLayout(self.rightTopBox)
 
         #IMAGE MANIPULATION SLIDERS LAYOUT
             #saturation sliders
-        self.vbox2 = QHBoxLayout()
+        self.rightBottomBox = QVBoxLayout()
+        self.leftBottomBox = QVBoxLayout()
+        self.bottomBox = QHBoxLayout()
         self.sliderbox = QVBoxLayout()
         self.saturationBox = QVBoxLayout()
         self.s1 = QSlider(Qt.Horizontal, self)
@@ -135,11 +137,13 @@ class MainPage(QWidget):
         self.vibranceBox.addWidget(self.s6)
         self.sliderbox.addLayout(self.saturationBox)
         self.sliderbox.addLayout(self.vibranceBox)
-        self.vbox2.addLayout(self.sliderbox)
+        self.rightBottomBox.addLayout(self.sliderbox)
+        self.bottomBox.addLayout(self.leftBottomBox)
+        self.bottomBox.addLayout(self.rightBottomBox)
 
         #BUTTON FOR REVERT
         self.revertButton = QPushButton("Revert")
-        self.vbox1.addWidget(self.revertButton)
+        self.leftBottomBox.addWidget(self.revertButton)
 
         #FILTER DROP BOX LAYOUT
         self.my_combo_box = QComboBox()
@@ -147,12 +151,12 @@ class MainPage(QWidget):
         self.my_combo_box.addItem(QIcon(self.originalPic), "Sepia")
         self.my_combo_box.addItem(QIcon(self.originalPic), "Gray")
         self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
-        self.vbox1.addWidget(self.my_combo_box)
+        self.leftBottomBox.addWidget(self.my_combo_box)
 
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
-        self.mbox.addLayout(self.vbox1)
-        self.mbox.addLayout(self.vbox2)
+        self.mbox.addLayout(self.topBox)
+        self.mbox.addLayout(self.bottomBox)
         self.setLayout(self.mbox)
 
         #FUNCTION SLOTS
@@ -197,9 +201,9 @@ class MainPage(QWidget):
 
         #DELETES EVERYTHING IN GUI
             #file explore / image display layout
-        self.leftUpperBox.removeWidget(self.displayPicText)
+        self.leftTopBox.removeWidget(self.displayPicText)
         self.displayPicText.deleteLater()
-        self.leftUpperBox.removeWidget(self.displayPicHolder)
+        self.leftTopBox.removeWidget(self.displayPicHolder)
         self.displayPicHolder.deleteLater()
             #image manipulation sliders layout
         self.saturationBox.removeWidget(self.s1)
@@ -215,10 +219,10 @@ class MainPage(QWidget):
         self.vibranceBox.removeWidget(self.s6)
         self.s6.deleteLater()
             #filter dropbox layout
-        self.vbox1.removeWidget(self.my_combo_box)
+        self.topBox.removeWidget(self.my_combo_box)
         self.my_combo_box.deleteLater()
             #revertButton
-        self.vbox1.removeWidget(self.revertButton)
+        self.topBox.removeWidget(self.revertButton)
         self.revertButton.deleteLater()
 
         self.vibranceBox.removeWidget(self.s123Type)
@@ -243,11 +247,11 @@ class MainPage(QWidget):
         self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
         self.displayPic = QPixmap(self.destination)
-        self.displayPic = self.displayPic.scaled(400, 400, Qt.KeepAspectRatio)
+        self.displayPic = self.displayPic.scaled(300, 300, Qt.KeepAspectRatio)
         self.displayPicHolder.setPixmap(self.displayPic)
-        self.leftUpperBox.addWidget(self.displayPicText)
-        self.leftUpperBox.addWidget(self.displayPicHolder)
-        # self.vbox1.addLayout(self.leftUpperBox)
+        self.leftTopBox.addWidget(self.displayPicText)
+        self.leftTopBox.addWidget(self.displayPicHolder)
+        # self.topBox.addLayout(self.leftTopBox)
             #adds new rgb sliders
                 #saturation sliders
         self.s1 = QSlider(Qt.Horizontal, self)
@@ -324,7 +328,7 @@ class MainPage(QWidget):
         self.s6.valueChanged.connect(self.blueVibranceChange)
             # Adds revert button
         self.revertButton = QPushButton("Revert")
-        self.vbox1.addWidget(self.revertButton)
+        self.leftBottomBox.addWidget(self.revertButton)
         self.revertButton.clicked.connect(self.revertToOrigin)
             # Adds Dropbox
         self.my_combo_box = QComboBox()
@@ -332,7 +336,7 @@ class MainPage(QWidget):
         self.my_combo_box.addItem(QIcon(self.originalPic), "Sepia")
         self.my_combo_box.addItem(QIcon(self.originalPic), "Gray")
         self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
-        self.vbox1.addWidget(self.my_combo_box)
+        self.leftBottomBox.addWidget(self.my_combo_box)
         self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
 
     #*******************************************************************************************************
@@ -367,11 +371,9 @@ class MainPage(QWidget):
 
     @pyqtSlot()
     def redVibranceChange(self):
-        print(self.redSaturationValue)
         value = self.s4.value()
         temp = value
         value = ImageManipFunctions.valueArithmeticAdvancedRecordKeepingFunction(value, self.redVibranceValue)
-        print(value)
         self.picToEditData = ImageManipFunctions.redVibrance(self.picToEditData, value, self.destination)
         self.redVibranceValue = temp
         self.updateMainPage()
@@ -407,7 +409,6 @@ class MainPage(QWidget):
     # Summary: These function will apply filter to the picToEditData
     @pyqtSlot()
     def applySepiaFilter(self):
-        print("Sepia Filter Applied")
         im = Image.open(self.originalPic)
         self.picToEditData = im.getdata()
         self.picToEditData = Filters.Sepia(self.picToEditData, self.destination)
@@ -420,7 +421,6 @@ class MainPage(QWidget):
         self.updateMainPage()
     @pyqtSlot()
     def applyGrayFilter(self):
-        print("Gray Filter Applied")
         im = Image.open(self.originalPic)
         self.picToEditData = im.getdata()
         self.picToEditData = Filters.Gray(self.picToEditData, self.destination)
@@ -433,7 +433,6 @@ class MainPage(QWidget):
         self.updateMainPage()
     @pyqtSlot()
     def applyNegativeFilter(self):
-        print("Negative Filter Applied")
         im = Image.open(self.originalPic)
         self.picToEditData = im.getdata()
         self.picToEditData = Filters.Neg(self.picToEditData, self.destination)
@@ -448,7 +447,6 @@ class MainPage(QWidget):
     # Summary:
     @pyqtSlot()
     def revertToOrigin(self):
-        print("Image reverted")
         im = Image.open(self.originalPic)
         self.picToEditData = im.getdata()
         im.save(self.destination)
