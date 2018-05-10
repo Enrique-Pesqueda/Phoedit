@@ -8,6 +8,7 @@ import sys
 from FileDialog import FileDialog
 from ImageManipFunctions import ImageManipFunctions
 from PyQt5.QtWidgets import *
+from filterFunctions import Filters
 from PIL import Image
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -103,13 +104,30 @@ class MainPage(QWidget):
         self.sliderbox.addLayout(self.saturationBox)
         self.sliderbox.addLayout(self.vibranceBox)
         self.vbox2.addLayout(self.sliderbox)
+        
+        #BUTTON FOR REVERT
+        self.revertButton = QPushButton("Revert")
+        self.vbox1.addWidget(self.revertButton)
+        
+        #FILTER DROP BOX LAYOUT
+        self.my_combo_box = QComboBox()
+        self.my_combo_box.addItem("Choose a Filter")
+        self.my_combo_box.addItem(QIcon(self.originalPic), "Sepia")
+        self.my_combo_box.addItem(QIcon(self.originalPic), "Gray")
+        self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
+        self.vbox1.addWidget(self.my_combo_box)
+        
+       
+
+        
+
 
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
         self.mbox.addLayout(self.vbox1)
         self.mbox.addLayout(self.vbox2)
         self.setLayout(self.mbox)
-        self.setGeometry(0, 0, 800, 600)
+        self.setGeometry(0, 0, 800, 800)
 
         #FUNCTION SLOTS
         self.fileExplorerButton.clicked.connect(self.openFileExplorerWindow)
@@ -119,6 +137,9 @@ class MainPage(QWidget):
         self.s4.valueChanged.connect(self.redVibranceChange)
         self.s5.valueChanged.connect(self.greenVibranceChange)
         self.s6.valueChanged.connect(self.blueVibranceChange)
+        self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
+        self.revertButton.clicked.connect(self.revertToOrigin)
+
 
         #SHOW EVERYTHING
         self.show()
@@ -164,6 +185,13 @@ class MainPage(QWidget):
         self.s5.deleteLater()
         self.vibranceBox.removeWidget(self.s6)
         self.s6.deleteLater()
+            #filter dropbox layout
+        self.vbox1.removeWidget(self.my_combo_box)
+        self.my_combo_box.deleteLater()
+            #revertButton
+        self.vbox1.removeWidget(self.revertButton)
+        self.revertButton.deleteLater()
+
 
         #CREATES NEW GUI
             #adds picture diplay and picture path text
@@ -237,6 +265,18 @@ class MainPage(QWidget):
         self.s4.valueChanged.connect(self.redVibranceChange)
         self.s5.valueChanged.connect(self.greenVibranceChange)
         self.s6.valueChanged.connect(self.blueVibranceChange)
+            # Adds revert button
+        self.revertButton = QPushButton("Revert")
+        self.vbox1.addWidget(self.revertButton)
+        self.revertButton.clicked.connect(self.revertToOrigin)
+            # Adds Dropbox
+        self.my_combo_box = QComboBox()
+        self.my_combo_box.addItem("Choose a Filter")
+        self.my_combo_box.addItem(QIcon(self.originalPic), "Sepia")
+        self.my_combo_box.addItem(QIcon(self.originalPic), "Gray")
+        self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
+        self.vbox1.addWidget(self.my_combo_box)
+        self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
 
 
     #*******************************************************************************************************
@@ -297,8 +337,72 @@ class MainPage(QWidget):
         self.updateMainPage()
 
     #*******************************************************************************************************
+    #Summary: Connects dropdown box to fucnctions that will apply filters
+    def selectionChange(self, i):
+        if(i is 1):
+            self.applySepiaFilter()
+        if(i is 2):
+            self.applyGrayFilter()
+        if(i is 3):
+            self.applyNegativeFilter()
+    #*******************************************************************************************************
+    # Summary: These function will apply filter to the picToEditData
+    @pyqtSlot()
+    def applySepiaFilter(self):
+        print("Sepia Filter Applied")
+        im = Image.open(self.originalPic)
+        self.picToEditData = im.getdata()
+        self.picToEditData = Filters.Sepia(self.picToEditData, self.destination)
+        self.redSaturationValue = 0
+        self.greenSaturationValue = 0
+        self.blueSaturationValue = 0
+        self.redVibranceValue = 0
+        self.greenVibranceValue = 0
+        self.blueVibranceValue = 0
+        self.updateMainPage()
+    @pyqtSlot()
+    def applyGrayFilter(self):
+        print("Gray Filter Applied")
+        im = Image.open(self.originalPic)
+        self.picToEditData = im.getdata()
+        self.picToEditData = Filters.Gray(self.picToEditData, self.destination)
+        self.redSaturationValue = 0
+        self.greenSaturationValue = 0
+        self.blueSaturationValue = 0
+        self.redVibranceValue = 0
+        self.greenVibranceValue = 0
+        self.blueVibranceValue = 0
+        self.updateMainPage()
+    @pyqtSlot()    
+    def applyNegativeFilter(self):
+        print("Negative Filter Applied")
+        im = Image.open(self.originalPic)
+        self.picToEditData = im.getdata()
+        self.picToEditData = Filters.Neg(self.picToEditData, self.destination)
+        self.redSaturationValue = 0
+        self.greenSaturationValue = 0
+        self.blueSaturationValue = 0
+        self.redVibranceValue = 0
+        self.greenVibranceValue = 0
+        self.blueVibranceValue = 0
+        self.updateMainPage()
+    #*******************************************************************************************************
+    # Summary: 
+    @pyqtSlot()    
+    def revertToOrigin(self):
+        print("Image reverted")
+        im = Image.open(self.originalPic)
+        self.picToEditData = im.getdata()
+        im.save(self.destination)
+        self.redSaturationValue = 0
+        self.greenSaturationValue = 0
+        self.blueSaturationValue = 0
+        self.redVibranceValue = 0
+        self.greenVibranceValue = 0
+        self.blueVibranceValue = 0
+        self.updateMainPage()
 
-
+        
     #PUT THIS WHEN WRITING NEW FUNCTIONS
     #*******************************************************************************************************
     # Summary:
