@@ -5,10 +5,11 @@
 # Description: This is the main file that brings all of the pyqt layouts together to create the completed GUI.
 #*******************************************************************************************************
 import sys
+import pickle
 from FileDialog import FileDialog
 from ImageManipFunctions import ImageManipFunctions
 from PyQt5.QtWidgets import *
-from filterFunctions import Filters
+from FilterFunctions import Filters
 from PIL import Image
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -37,6 +38,8 @@ class MainPage(QWidget):
         self.redVibranceValue = 0
         self.greenVibranceValue = 0
         self.blueVibranceValue = 0
+        self.imageHeight = 0
+        self.imageWidth = 0
 
         #FILE EXPLORER / IMAGE DISPLAY / HISTOGRAM LAYOUT
         self.displayPicText = QLabel('File Location: ' + self.originalPic)
@@ -153,6 +156,10 @@ class MainPage(QWidget):
         self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
         self.leftBottomBox.addWidget(self.my_combo_box)
 
+        #SAVE BUTTON
+        self.saveButton = QPushButton("Save")
+        self.leftBottomBox.addWidget(self.saveButton)
+
         #MAIN LAYOUT
         self.mbox = QVBoxLayout()
         self.mbox.addLayout(self.topBox)
@@ -167,7 +174,6 @@ class MainPage(QWidget):
         self.s4.valueChanged.connect(self.redVibranceChange)
         self.s5.valueChanged.connect(self.greenVibranceChange)
         self.s6.valueChanged.connect(self.blueVibranceChange)
-        self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
         self.revertButton.clicked.connect(self.revertToOrigin)
 
 
@@ -185,6 +191,7 @@ class MainPage(QWidget):
             self.originalPic = ogPicHolder
         self.destination = 'images/001' + FileDialog.fileExtensionGrabber(self.originalPic)
         im = Image.open(self.originalPic)
+        self.imageHeight, self.imageWidth = im.size
         im.save(self.destination)
         self.picToEditData = im.getdata()
         self.redSaturationValue = 0
@@ -194,6 +201,16 @@ class MainPage(QWidget):
         self.greenVibranceValue = 0
         self.blueVibranceValue = 0
         self.updateMainPage()
+    #*******************************************************************************************************
+    # Summary: This function opens the file explorer to select a location to save your current image.
+    @pyqtSlot()
+    def openSaveFileWindow(self):
+        saveLocation = FileDialog.saveFileDialog(self)
+        if saveLocation != False:
+            saveLocation += FileDialog.fileExtensionGrabber(self.originalPic)
+            newImage = Image.new('RGB', (self.imageHeight, self.imageWidth))
+            newImage.putdata(self.picToEditData)
+            newImage.save(saveLocation)
     #*******************************************************************************************************
     # Summary: This function updates the main display by deleting widgets adding new widgets with updated
     #          information to the mainpage.
@@ -241,6 +258,10 @@ class MainPage(QWidget):
         self.s5Text.deleteLater()
         self.vibranceBox.removeWidget(self.s6Text)
         self.s6Text.deleteLater()
+
+            #delete save button
+        self.leftBottomBox.removeWidget(self.saveButton)
+        self.saveButton.deleteLater()
 
         #CREATES NEW GUI
             #adds picture diplay and picture path text
@@ -316,6 +337,7 @@ class MainPage(QWidget):
         self.s6.setTickPosition(QSlider.TicksBelow)
         self.s6.setTickInterval(5)
         self.s456Type = QLabel('Vibrance')
+        self.s456Type.setFont(QFont('SansSerif', 15))
         self.vibranceBox.addWidget(self.s456Type)
         self.vibranceBox.addWidget(self.s4Text)
         self.vibranceBox.addWidget(self.s4)
@@ -337,8 +359,14 @@ class MainPage(QWidget):
         self.my_combo_box.addItem(QIcon(self.originalPic), "Gray")
         self.my_combo_box.addItem(QIcon(self.originalPic), "Negative")
         self.leftBottomBox.addWidget(self.my_combo_box)
-        self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
 
+        #adds save button
+        self.saveButton = QPushButton("Save")
+        self.leftBottomBox.addWidget(self.saveButton)
+
+        if self.originalPic != 'images/noImageSelected.jpg' and self.destination != 'images/noImageSelected.jpg':
+            self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
+            self.saveButton.clicked.connect(self.openSaveFileWindow)
     #*******************************************************************************************************
     # Summary: Links to RGB saturation sliders and calls image manipulation functions  from
     #          ImageManipFunctions class.
