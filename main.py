@@ -7,6 +7,7 @@
 import sys
 import pickle
 from FileDialog import FileDialog
+import histogramFunctions
 from ImageManipFunctions import ImageManipFunctions
 from PyQt5.QtWidgets import *
 from FilterFunctions import Filters
@@ -49,6 +50,8 @@ class MainPage(QWidget):
         self.displayPicHolder.setPixmap(self.displayPic)
         self.fileExplorerButton = QPushButton('Choose Image to Edit')
             #main upper box
+            #creates new Histograms
+        histogramFunctions.run(self.destination)
         self.topBox = QHBoxLayout()
         self.leftTopBox = QVBoxLayout()
             #left box inside of topBox
@@ -56,16 +59,33 @@ class MainPage(QWidget):
         self.leftTopBox.addWidget(self.displayPicText)
         self.leftTopBox.addWidget(self.displayPicHolder)
             #rght box inside topBox
-        self.rightTopBox = QHBoxLayout()
+        self.rightTopBox = QVBoxLayout()
+        self.histogramText = QLabel('Histograms')
+        self.histogramText.setFont(QFont('SansSerif', 15))
+        self.rightTopBox.addWidget(self.histogramText)
+            #red
         self.redHistogramHolder = QLabel()
-        self.redHistogram = QPixmap()
+        self.redHistogram = QPixmap('images/red.png')
+        self.redHistogram = self.redHistogram.scaled(150, 150, Qt.KeepAspectRatio)
+        self.redHistogramHolder.setPixmap(self.redHistogram)
+                #green
         self.greenHistogramHolder = QLabel()
-        self.greenHistogram = QPixmap()
+        self.greenHistogram = QPixmap('images/green.png')
+        self.greenHistogram = self.greenHistogram.scaled(150, 150, Qt.KeepAspectRatio)
+        self.greenHistogramHolder.setPixmap(self.greenHistogram)
+                #blue
         self.blueHistogramHolder = QLabel()
-        self.blueHistogram = QPixmap()
-        self.rightTopBox.addWidget(self.redHistogramHolder)
-        self.rightTopBox.addWidget(self.greenHistogramHolder)
-        self.rightTopBox.addWidget(self.blueHistogramHolder)
+        self.blueHistogram = QPixmap('images/blue.png')
+        self.blueHistogram = self.blueHistogram.scaled(150, 150, Qt.KeepAspectRatio)
+        self.blueHistogramHolder.setPixmap(self.blueHistogram)
+                #add red greed blue
+        self.topBoxRightTopBox = QHBoxLayout()
+        self.topBoxRightTopBox.addWidget(self.redHistogramHolder)
+        self.topBoxRightTopBox.addWidget(self.greenHistogramHolder)
+        self.bottomBoxRightTopBox = QHBoxLayout()
+        self.bottomBoxRightTopBox.addWidget(self.blueHistogramHolder)
+        self.rightTopBox.addLayout(self.topBoxRightTopBox)
+        self.rightTopBox.addLayout(self.bottomBoxRightTopBox)
         self.topBox.addLayout(self.leftTopBox)
         self.topBox.addLayout(self.rightTopBox)
 
@@ -263,7 +283,19 @@ class MainPage(QWidget):
         self.leftBottomBox.removeWidget(self.saveButton)
         self.saveButton.deleteLater()
 
+            #deletes Histograms
+        self.topBoxRightTopBox.removeWidget(self.redHistogramHolder)
+        self.redHistogramHolder.deleteLater()
+        self.topBoxRightTopBox.removeWidget(self.greenHistogramHolder)
+        self.greenHistogramHolder.deleteLater()
+        self.bottomBoxRightTopBox.removeWidget(self.blueHistogramHolder)
+        self.blueHistogramHolder.deleteLater()
+
+
         #CREATES NEW GUI
+            #creates new Histograms
+        histogramFunctions.run(self.destination)
+
             #adds picture diplay and picture path text
         self.displayPicText = QLabel('File Location: ' + self.originalPic)
         self.displayPicHolder = QLabel(self)
@@ -367,6 +399,27 @@ class MainPage(QWidget):
         if self.originalPic != 'images/noImageSelected.jpg' and self.destination != 'images/noImageSelected.jpg':
             self.my_combo_box.currentIndexChanged.connect(self.selectionChange)
             self.saveButton.clicked.connect(self.openSaveFileWindow)
+            #rght box inside topBox
+            #red
+        self.redHistogramHolder = QLabel()
+        self.redHistogram = QPixmap('images/red.png')
+        self.redHistogram = self.redHistogram.scaled(150, 150, Qt.KeepAspectRatio)
+        self.redHistogramHolder.setPixmap(self.redHistogram)
+                #green
+        self.greenHistogramHolder = QLabel()
+        self.greenHistogram = QPixmap('images/green.png')
+        self.greenHistogram = self.greenHistogram.scaled(150, 150, Qt.KeepAspectRatio)
+        self.greenHistogramHolder.setPixmap(self.greenHistogram)
+                #blue
+        self.blueHistogramHolder = QLabel()
+        self.blueHistogram = QPixmap('images/blue.png')
+        self.blueHistogram = self.blueHistogram.scaled(150, 150, Qt.KeepAspectRatio)
+        self.blueHistogramHolder.setPixmap(self.blueHistogram)
+                #add red greed blue
+        self.topBoxRightTopBox.addWidget(self.redHistogramHolder)
+        self.topBoxRightTopBox.addWidget(self.greenHistogramHolder)
+        self.bottomBoxRightTopBox.addWidget(self.blueHistogramHolder)
+
     #*******************************************************************************************************
     # Summary: Links to RGB saturation sliders and calls image manipulation functions  from
     #          ImageManipFunctions class.
