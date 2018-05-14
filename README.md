@@ -1,8 +1,8 @@
 # Phoedit
--_____________________________________________________________________________________________________
+_____________________________________________________________________________________________________
 +
  ## Contributers: Sam Peters, Sebastian Ruiz, Enrique P. Mosqueda, Tristan Martin
--_____________________________________________________________________________________________________
+_____________________________________________________________________________________________________
 +
  ### CST 205
  ### May 13, 2018
@@ -22,4 +22,4 @@
 +* Picking from the list of preset filters in the combobox
 +
 +#### 3. After applying any changes you can then choose to save the image
-+[GitHub PhoEdit repository] (https://github.com/Enrique-Pesqueda/Phoedit)
++GitHub PhoEdit Repository Link: (https://github.com/Enrique-Pesqueda/Phoedit)
