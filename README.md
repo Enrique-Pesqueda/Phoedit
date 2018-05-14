@@ -7,7 +7,7 @@ ________________________________________________________________________________
 _____________________________________________________________________________________________________
 #### Prerequisites: Must have python modules Pillow, PyQT5
 ### _Running the program_
-### (*Disclaimer* Can not handle file sizes above 7 megabytes *Disclaimer*)
+### _Disclaimer:_ Can not handle file sizes above 7 megabytes Disclaimer
 #### 1. First you must pick a picture to edit through the file navigator 
 #### 2. Once you have picked a picture you can can then choose to edit the image by:
 
