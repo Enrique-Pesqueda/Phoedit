@@ -9,6 +9,6 @@ ________________________________________________________________________________
 #### 1. First you must pick a picture to edit through the file navigator 
 #### 2. Once you have picked a picture you can can then choose to edit the image by:
 
-####* Using the indiviual sliders that control the vibrance of a channel
-####* Using the indiviual sliders that control the saturation of a channel
-####* Picking from the list of filters in the combobox
+#### ⋅⋅*Using the indiviual sliders that control the vibrance of a channel
+#### ⋅⋅*Using the indiviual sliders that control the saturation of a channel
+#### ⋅⋅*Picking from the list of filters in the combobox
