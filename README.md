@@ -23,3 +23,8 @@ ________________________________________________________________________________
 
 
 +GitHub PhoEdit Repository Link: (https://github.com/Enrique-Pesqueda/Phoedit)
+
+### Future Work:
+* Make it more memory effecient to add larger files
+* Make vibrance functions use a percentage, instead of a fixed integer
+* Add text to a picture
